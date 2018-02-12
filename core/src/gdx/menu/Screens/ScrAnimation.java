@@ -45,7 +45,7 @@ public class ScrAnimation implements Screen, InputProcessor {
         btnGame = new Button(100, 50, 0, 0, "Game.png");
         
         txNamT = new Texture("A.jpg");
-        txSheet = new Texture("Vlad.png");
+        txSheet = new Texture("sprmouse.png");
         sprNamT = new Sprite(txNamT);   //Screen Name sprite
         sprNamT.setFlip(false, true);
         sprNamT.setSize(60, 80);
@@ -55,12 +55,12 @@ public class ScrAnimation implements Screen, InputProcessor {
         //Animation Stuff
         nFrame = 0;
         nPos = 0;
-        araniDude = new Animation[8];
-        fW = txSheet.getWidth() / 8;
-        fH = txSheet.getHeight() / 8;
-        for (int i = 0; i < 8; i++) {
-            Sprite[] arSprDude = new Sprite[8];
-            for (int j = 0; j < 8; j++) {
+        araniDude = new Animation[4];
+        fW = txSheet.getWidth() / 4;
+        fH = txSheet.getHeight() / 4;
+        for (int i = 0; i < 4; i++) {
+            Sprite[] arSprDude = new Sprite[4];
+            for (int j = 0; j < 4; j++) {
                 fSx = j * fW;
                 fSy = i * fH;
                 sprDude = new Sprite(txSheet, fSx, fSy, fW, fH);
@@ -87,31 +87,31 @@ public class ScrAnimation implements Screen, InputProcessor {
         trTemp = araniDude[nPos].getKeyFrame(nFrame, false);
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             nX = nX-=1;
-            nPos = 7;
+            nPos = 1;
             nFrame++;
         } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             nX = nX+=1;
-            nPos = 0;
+            nPos = 2;
             nFrame++;
         } if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             nY = nY-=1;
-            nPos = 1;
+            nPos = 3;
             nFrame++;
         } if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             nY = nY+=1;
-            nPos = 4;
+            nPos = 0;
             nFrame++;
         } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
-            nPos = 3;
+            nPos = 1;
             nFrame--;
         } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            nPos = 6;
+            nPos = 1;
             nFrame--;
         } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
             nPos = 2;
             nFrame--;
         } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            nPos = 5;
+            nPos = 2;
             nFrame--;
         }
         
