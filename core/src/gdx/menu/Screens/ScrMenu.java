@@ -15,10 +15,10 @@ public class ScrMenu implements Screen, InputProcessor {
 
     Button btnPlay, btnAni, btnSign, btnQuit, btnAH, btnGame;
     GamMenu gamMenu;
-    Texture txButtonP, txButtonT, txNamM;
+    Texture txButtonP, txButtonT, txNamM, txBackground;
     OrthographicCamera oc;
     SpriteBatch batch;
-    Sprite sprNamM;
+    Sprite sprNamM,sprBackground;
 
     public ScrMenu(GamMenu _gamMenu) {  //Referencing the main class.
         gamMenu = _gamMenu;
@@ -36,6 +36,10 @@ public class ScrMenu implements Screen, InputProcessor {
         btnQuit = new Button(100, 50, Gdx.graphics.getWidth() - 100, 0, "Quit.jpg");
         btnAH = new Button(100, 50, Gdx.graphics.getWidth()/2 - 50, 0, "AniHit.png");
         btnGame = new Button(100, 50, 0, 0, "Game.png");
+        txBackground = new Texture ("EarthBG.jpg");
+        sprBackground = new Sprite (txBackground);
+        sprBackground.setFlip(false, true);
+        sprBackground.setScale(4.05f,2.75f);
         txNamM = new Texture("M.jpg");
         sprNamM = new Sprite(txNamM);
         sprNamM.setFlip(false, true);
@@ -46,10 +50,12 @@ public class ScrMenu implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 1, 0, 1); //Green background.
+        Gdx.gl.glClearColor(0,0,0,0); //black background
+        
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.setProjectionMatrix(oc.combined);
+        sprBackground.draw(batch);
         sprNamM.draw(batch);
         btnPlay.draw(batch);
         btnAni.draw(batch);
