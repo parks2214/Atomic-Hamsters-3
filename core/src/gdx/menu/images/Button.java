@@ -1,4 +1,4 @@
-package gdx.menu.Screens;
+package gdx.menu.images;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import gdx.menu.GamMenu;
+import gdx.menu.images.Button;
 
 public class ScrMenu implements Screen, InputProcessor {
 

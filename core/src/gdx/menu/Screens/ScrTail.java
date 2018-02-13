@@ -10,8 +10,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.Input;
 import gdx.menu.GamMenu;
+import gdx.menu.images.Button;
+import gdx.menu.images.Dude;
+import gdx.menu.images.Wall;
 
-public class ScrPlay implements Screen, InputProcessor {
+public class ScrTail implements Screen, InputProcessor {
     Dude dud1;
     Button btnSign, btnAni, btnMenu, btnQuit, btnAH, btnGame;
     Wall[] arWall = new Wall[4];
@@ -21,7 +24,7 @@ public class ScrPlay implements Screen, InputProcessor {
     Texture txNamP, txWall;
     Sprite sprNamP;
 
-    public ScrPlay(GamMenu _gamMenu) {  //Referencing the main class.
+    public ScrTail(GamMenu _gamMenu) {  //Referencing the main class.
         gamMenu = _gamMenu;
     }
 

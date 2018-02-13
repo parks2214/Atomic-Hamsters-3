@@ -10,8 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.Texture;
 import gdx.menu.GamMenu;
+import gdx.menu.images.Button;
+import gdx.menu.images.Dude;
+import gdx.menu.images.Wall;
 
-public class ScrSign implements Screen, InputProcessor {
+public class ScrFood implements Screen, InputProcessor {
     Dude dud1;
     Button btnMenu, btnPlay, btnAni, btnQuit, btnAH, btnGame;
     OrthographicCamera oc;
@@ -20,7 +23,7 @@ public class ScrSign implements Screen, InputProcessor {
     SpriteBatch batch;
     Sprite sprNamSign, sprSign, sprBox1, sprBox2;
     int nTrig = 0; //Trigger variable for sign
-    public ScrSign(GamMenu _gamMenu) {  //Referencing the main class.
+    public ScrFood(GamMenu _gamMenu) {  //Referencing the main class.
         gamMenu = _gamMenu;
     }
 
@@ -203,3 +206,4 @@ public class ScrSign implements Screen, InputProcessor {
         return spr1.getBoundingRectangle().overlaps(spr2.getBoundingRectangle());
     }
 }
+

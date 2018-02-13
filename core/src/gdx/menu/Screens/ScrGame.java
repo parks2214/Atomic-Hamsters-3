@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import gdx.menu.GamMenu;
+import gdx.menu.images.Button;
+import gdx.menu.images.Wall;
 
 public class ScrGame implements Screen, InputProcessor{
     SpriteBatch batch;
