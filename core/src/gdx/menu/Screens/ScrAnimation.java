@@ -13,19 +13,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import gdx.menu.GamMenu;
 import gdx.menu.images.Button;
-import gdx.menu.images.Wall;
 
 public class ScrAnimation implements Screen, InputProcessor {
     Button btnMenu, btnSign, btnPlay, btnQuit, btnAH, btnGame;
     GamMenu gamMenu;
     OrthographicCamera oc;
     Texture txButtonM, txButtonQ, txNamT, txSheet;
-    Animation araniDude[];
+    Animation araniMouse[];
     TextureRegion trTemp;
     int fW, fH, fSx, fSy;
     int nFrame, nPos;
     int nX = 100, nY = 100;
-    Sprite sprButtonMenu, sprButtonSign, sprNamT, sprDude;
+    Sprite sprButtonMenu, sprButtonSign, sprNamT, sprMouse;
     SpriteBatch batch;
     
     public ScrAnimation(GamMenu _gamMenu) {
@@ -57,19 +56,19 @@ public class ScrAnimation implements Screen, InputProcessor {
         //Animation Stuff
         nFrame = 0;
         nPos = 0;
-        araniDude = new Animation[4];
+        araniMouse = new Animation[4];
         fW = txSheet.getWidth() / 4;
         fH = txSheet.getHeight() / 4;
         for (int i = 0; i < 4; i++) {
-            Sprite[] arSprDude = new Sprite[4];
+            Sprite[] arSprMouse = new Sprite[4];
             for (int j = 0; j < 4; j++) {
                 fSx = j * fW;
                 fSy = i * fH;
-                sprDude = new Sprite(txSheet, fSx, fSy, fW, fH);
-                sprDude.setFlip(false, true);
-                arSprDude[j] = new Sprite(sprDude);
+                sprMouse = new Sprite(txSheet, fSx, fSy, fW, fH);
+                sprMouse.setFlip(false, true);
+                arSprMouse[j] = new Sprite(sprMouse);
             }
-            araniDude[i] = new Animation(0.8f, arSprDude);
+            araniMouse[i] = new Animation(0.8f, arSprMouse);
 
         }
         
@@ -86,7 +85,7 @@ public class ScrAnimation implements Screen, InputProcessor {
         if (nFrame > 7) {
             nFrame = 0;
         }
-        trTemp = araniDude[nPos].getKeyFrame(nFrame, false);
+        trTemp = araniMouse[nPos].getKeyFrame(nFrame, false);
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             nX = nX-=1;
             nPos = 1;

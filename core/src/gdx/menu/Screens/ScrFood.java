@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.Texture;
 import gdx.menu.GamMenu;
 import gdx.menu.images.Button;
 import gdx.menu.images.Dude;
-import gdx.menu.images.Wall;
 
 public class ScrFood implements Screen, InputProcessor {
     Dude dud1;

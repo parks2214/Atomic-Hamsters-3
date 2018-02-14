@@ -22,10 +22,10 @@ public class ScrGame implements Screen, InputProcessor{
     Button btnMenu, btnSign, btnPlay, btnAni, btnQuit, btnAH;
     TextureRegion trTemp;
     Texture txSheet, txNamGame, txMap, txSign, txTextbox1, txTextbox2, txTextbox3, txHouse;
-    Sprite sprNamGame, sprDude, sprAni, sprMap, sprSign, sprHouse;   //sprAni is a ghost, a sprite used for hit detection, maybe a bit redundant
+    Sprite sprNamGame, sprMouse, sprAni, sprMap, sprSign, sprHouse;   //sprAni is a ghost, a sprite used for hit detection, maybe a bit redundant
     Sprite arsprTextbox[] = new Sprite[3];
     int nFrame, nPos, nX = 100, nY = 100, nTrig = 0;
-    Animation araniDude[];
+    Animation araniMouse[];
     int fW, fH, fSx, fSy;
     Wall[] arWall = new Wall[4];
     
@@ -47,7 +47,7 @@ public class ScrGame implements Screen, InputProcessor{
         btnAni = new Button(100, 50, Gdx.graphics.getWidth()/2 - 50, 0, "Animation.jpg");
         btnAH = new Button(100, 50, 0, 0, "AniHit.png");
         txNamGame = new Texture("G.png");
-        txSheet = new Texture("Vlad.png");
+        txSheet = new Texture("sprmouse.png");
         sprNamGame = new Sprite(txNamGame);
         sprNamGame.setFlip(false, true);
         sprNamGame.setSize(60, 80);
@@ -84,24 +84,24 @@ public class ScrGame implements Screen, InputProcessor{
         sprHouse.setPosition(96, 196);
         //Animation Stuff
         nFrame = 0;
-        nPos = 4;
-        araniDude = new Animation[8];
-        fW = txSheet.getWidth() / 8;
-        fH = txSheet.getHeight() / 8;
-        for (int i = 0; i < 8; i++) {
-            Sprite[] arSprDude = new Sprite[8];
-            for (int j = 0; j < 8; j++) {
+        nPos = 0;
+        araniMouse = new Animation[4];
+        fW = txSheet.getWidth() / 4;
+        fH = txSheet.getHeight() / 4;
+        for (int i = 0; i < 4; i++) {
+            Sprite[] arSprMouse = new Sprite[4];
+            for (int j = 0; j < 4; j++) {
                 fSx = j * fW;
                 fSy = i * fH;
-                sprDude = new Sprite(txSheet, fSx, fSy, fW, fH);
-                sprDude.setFlip(false, true);
-                arSprDude[j] = new Sprite(sprDude);
+                sprMouse = new Sprite(txSheet, fSx, fSy, fW, fH);
+                sprMouse.setFlip(false, true);
+                arSprMouse[j] = new Sprite(sprMouse);
             }
-            araniDude[i] = new Animation(0.8f, arSprDude);
+            araniMouse[i] = new Animation(0.8f, arSprMouse);
 
         }
         sprAni = new Sprite(txNamGame, 0, 0, fW, fH);
-        sprAni.setPosition(110, 273);
+        sprAni.setPosition(250, 250);
         Gdx.input.setInputProcessor(this);
     }
 
@@ -112,6 +112,44 @@ public class ScrGame implements Screen, InputProcessor{
         float fSx = sprAni.getX();
         float fSy = sprAni.getY();
         //Animation Stuff
+        if (nFrame > 7) {
+            nFrame = 0;
+        }
+        trTemp = araniMouse[nPos].getKeyFrame(nFrame, false);
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            sprAni.setX(sprAni.getX()-1);
+            nX = nX-=1;
+            nPos = 1;
+            nFrame++;
+        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            sprAni.setX(sprAni.getX()+1);
+            nX = nX+=1;
+            nPos = 2;
+            nFrame++;
+        } if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            sprAni.setY(sprAni.getY()-1);
+            nY = nY-=1;
+            nPos = 3;
+            nFrame++;
+        } if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            sprAni.setY(sprAni.getY()+1);
+            nY = nY+=1;
+            nPos = 0;
+            nFrame++;
+        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
+            nPos = 1;
+            nFrame--;
+        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            nPos = 1;
+            nFrame--;
+        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
+            nPos = 2;
+            nFrame--;
+        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            nPos = 2;
+            nFrame--;
+        }
+        
         if(isHitS(sprAni, sprSign) && nTrig == 0){
             System.out.println("Read Sign");
             nTrig = 1;
@@ -129,43 +167,7 @@ public class ScrGame implements Screen, InputProcessor{
         if(nTrig == 4 && Gdx.input.isKeyPressed(Input.Keys.ENTER)){
             gamMenu.updateState(6);
         }
-        if (nFrame > 7) {
-            nFrame = 0;
-        }
-        trTemp = araniDude[nPos].getKeyFrame(nFrame, false);
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            //nX = nX-=1;
-            sprAni.setX(sprAni.getX() - 1);
-            nPos = 7;
-            nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            //nX = nX+=1;
-            sprAni.setX(sprAni.getX() + 1);
-            nPos = 0;
-            nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            //nY = nY-=1;
-            sprAni.setY(sprAni.getY() - 1);
-            nPos = 1;
-            nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            //nY = nY+=1;
-            sprAni.setY(sprAni.getY() + 1);
-            nPos = 4;
-            nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
-            nPos = 3;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            nPos = 6;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
-            nPos = 2;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            nPos = 5;
-            nFrame--;
-        }
+        
         for (int i = 0; i < arWall.length; i++) {
            if(isHitS(sprAni, arWall[i])){
                 sprAni.setPosition(fSx, fSy);
