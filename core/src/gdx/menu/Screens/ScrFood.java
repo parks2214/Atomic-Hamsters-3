@@ -11,10 +11,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.Texture;
 import gdx.menu.GamMenu;
 import gdx.menu.images.Button;
-import gdx.menu.images.Dude;
 
 public class ScrFood implements Screen, InputProcessor {
-    Dude dud1;
     Button btnMenu, btnPlay, btnAni, btnQuit, btnAH, btnGame;
     OrthographicCamera oc;
     Texture txNamS, txSign, txBox1, txBox2;
@@ -43,7 +41,6 @@ public class ScrFood implements Screen, InputProcessor {
         sprNamSign.setFlip(false, true);
         sprNamSign.setSize(60, 80);
         sprNamSign.setPosition(Gdx.graphics.getWidth() / 2 - 30, Gdx.graphics.getHeight() / 2 - 40);
-        dud1 = new Dude(50, 100, 200, 250);
         txSign = new Texture("Sign.png");
         sprSign = new Sprite(txSign);
         sprSign.setPosition(150, 150);
@@ -67,27 +64,6 @@ public class ScrFood implements Screen, InputProcessor {
         Gdx.gl.glClearColor(0, 0, 1, 1); //Blue background.
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            dud1.setX(dud1.getX()-5);
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            dud1.setX(dud1.getX()+5);
-        } if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            dud1.setY(dud1.getY()-5);
-        } if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            dud1.setY(dud1.getY()+5);
-        }
-
-        if(isHitS(dud1, sprSign) && nTrig == 0){
-            System.out.println("Read Sign");
-            nTrig = 1;
-        } else if(isHitS(dud1, sprSign) && nTrig == 3){
-            nTrig = 3;
-        }else if(! isHitS(dud1, sprSign)){
-            nTrig = 0;
-        }
-        if(nTrig == 1 && Gdx.input.isKeyPressed(Input.Keys.ENTER)){
-            nTrig = 3;
-        }
         batch.begin();
         batch.setProjectionMatrix(oc.combined);
         btnPlay.draw(batch);
@@ -96,7 +72,6 @@ public class ScrFood implements Screen, InputProcessor {
         sprNamSign.draw(batch);
         sprSign.draw(batch);
         btnQuit.draw(batch);
-        dud1.draw(batch);
         btnAH.draw(batch);
         btnGame.draw(batch);
         if(nTrig == 1){

@@ -11,11 +11,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.Input;
 import gdx.menu.GamMenu;
 import gdx.menu.images.Button;
-import gdx.menu.images.Dude;
 import gdx.menu.images.Wall;
 
 public class ScrTail implements Screen, InputProcessor {
-    Dude dud1;
     Button btnSign, btnAni, btnMenu, btnQuit, btnAH, btnGame;
     Wall[] arWall = new Wall[4];
     GamMenu gamMenu;
@@ -45,7 +43,6 @@ public class ScrTail implements Screen, InputProcessor {
         sprNamP.setSize(60, 80);
         sprNamP.setFlip(false, true);
         sprNamP.setPosition(Gdx.graphics.getWidth() / 2 - 30, Gdx.graphics.getHeight() / 2 - 40);
-        dud1 = new Dude(50, 100, 200, 250);
         btnAni = new Button(100, 50, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50, "Animation.jpg");
         btnSign = new Button(100, 50, 0, Gdx.graphics.getHeight() - 50, "SignB.png");
         btnMenu = new Button(100, 50, Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()- 50, "Menu.jpg");
@@ -59,28 +56,7 @@ public class ScrTail implements Screen, InputProcessor {
     public void render(float delta) {
         Gdx.gl.glClearColor(.135f, .206f, .235f, 1); //blue background.
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        float fSx = dud1.getX();
-        float fSy = dud1.getY();
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            dud1.setX(dud1.getX() - 5);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            dud1.setX(dud1.getX() + 5);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            dud1.setY(dud1.getY() + 5);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            dud1.setY(dud1.getY() - 5);
-        }
-        if (isHitS(dud1, sprNamP)) {
-            dud1.setPosition(fSx, fSy);
-        }
-        for (int i = 0; i < arWall.length; i++) {
-            if (isHitS(dud1, arWall[i])) {
-                dud1.setPosition(fSx, fSy);
-            }
-        }
+        
         batch.begin();
         batch.setProjectionMatrix(oc.combined);
         btnAni.draw(batch);
@@ -90,7 +66,6 @@ public class ScrTail implements Screen, InputProcessor {
         btnQuit.draw(batch);
         btnAH.draw(batch);
         btnGame.draw(batch);
-        dud1.draw(batch);
         for (int i = 0; i < arWall.length; i++) {
             arWall[i].draw(batch);
         }
