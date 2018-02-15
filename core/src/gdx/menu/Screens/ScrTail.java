@@ -44,7 +44,7 @@ public class ScrTail implements Screen, InputProcessor {
         sprNamP.setFlip(false, true);
         sprNamP.setPosition(Gdx.graphics.getWidth() / 2 - 30, Gdx.graphics.getHeight() / 2 - 40);
         btnAni = new Button(100, 50, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50, "Animation.jpg");
-        btnSign = new Button(100, 50, 0, Gdx.graphics.getHeight() - 50, "SignB.png");
+        btnSign = new Button(100, 50, 0, Gdx.graphics.getHeight() - 50, "Food.png");
         btnMenu = new Button(100, 50, Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()- 50, "Menu.jpg");
         btnAH = new Button(100, 50, Gdx.graphics.getWidth()/2 - 50, 0, "AniHit.png");
         btnQuit = new Button(100, 50, Gdx.graphics.getWidth() - 100, 0, "Quit.jpg");

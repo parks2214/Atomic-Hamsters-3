@@ -21,9 +21,9 @@ public class ScrGame implements Screen, InputProcessor{
     OrthographicCamera oc;
     Button btnMenu, btnSign, btnPlay, btnAni, btnQuit, btnAH;
     TextureRegion trTemp;
-    Texture txSheet, txNamGame, txMap, txSign, txTextbox1, txTextbox2, txTextbox3, txHouse;
+    Texture txSheet, txNamGame, txMap, txSign, txTextbox1, txTextbox2,txHouse;// txTextbox3, txHouse;
     Sprite sprNamGame, sprMouse, sprAni, sprMap, sprSign, sprHouse;   //sprAni is a ghost, a sprite used for hit detection, maybe a bit redundant
-    Sprite arsprTextbox[] = new Sprite[3];
+    Sprite arsprTextbox[] = new Sprite[2];
     int nFrame, nPos, nX = 100, nY = 100, nTrig = 0;
     Animation araniMouse[];
     int fW, fH, fSx, fSy;
@@ -54,17 +54,15 @@ public class ScrGame implements Screen, InputProcessor{
         sprNamGame.setPosition(Gdx.graphics.getWidth()/2 - 30, Gdx.graphics.getHeight()/2 - 40);
         txTextbox1 = new Texture("Textbox.png");
         txTextbox2 = new Texture("Textbox2.png");
-        txTextbox3 = new Texture("Textbox3.png");
         arsprTextbox[0] = new Sprite(txTextbox1);
         arsprTextbox[1] = new Sprite(txTextbox2);
-        arsprTextbox[2] = new Sprite(txTextbox3);
         for (int i = 0; i < arsprTextbox.length; i++) {
             arsprTextbox[i].setFlip(false, true);
             arsprTextbox[i].setSize(300, 125);
             arsprTextbox[i].setPosition(Gdx.graphics.getWidth()/2 - arsprTextbox[i].getWidth()/2, 0);
         }
         txMap = new Texture("Map so far.png");
-        txHouse = new Texture("House.png");
+        //txHouse = new Texture("House.png");
         sprMap = new Sprite(txMap);
         sprMap.setScale(4);
         sprMap.setPosition(Gdx.graphics.getWidth() / 2 - sprMap.getWidth() / 2, Gdx.graphics.getHeight() / 2 - sprMap.getHeight() / 2);
@@ -78,10 +76,6 @@ public class ScrGame implements Screen, InputProcessor{
         sprSign.setPosition(400, 270);
         sprSign.setSize(25, 25);
         sprSign.setFlip(false, true);
-        sprHouse = new Sprite(txHouse);
-        sprHouse.setFlip(false, true);
-        sprHouse.setSize(75, 75);
-        sprHouse.setPosition(96, 196);
         //Animation Stuff
         nFrame = 0;
         nPos = 0;
@@ -158,15 +152,10 @@ public class ScrGame implements Screen, InputProcessor{
         }else if(! isHitS(sprAni, sprSign)){
             nTrig = 0;
         } 
-        if(isHitS(sprAni, sprHouse) && nTrig == 0){
-            nTrig = 4;
-        }
         if(nTrig == 1 && Gdx.input.isKeyPressed(Input.Keys.ENTER)){
             nTrig = 3;
         } 
-        if(nTrig == 4 && Gdx.input.isKeyPressed(Input.Keys.ENTER)){
-            gamMenu.updateState(6);
-        }
+
         
         for (int i = 0; i < arWall.length; i++) {
            if(isHitS(sprAni, arWall[i])){
@@ -185,7 +174,6 @@ public class ScrGame implements Screen, InputProcessor{
         btnAni.draw(batch);
         btnAH.draw(batch);
         sprSign.draw(batch);
-        sprHouse.draw(batch);
         batch.draw(trTemp, fSx, fSy);
         for(int i = 0; i < arWall.length; i++){
         arWall[i].draw(batch);
@@ -194,8 +182,6 @@ public class ScrGame implements Screen, InputProcessor{
             arsprTextbox[0].draw(batch);
         } else if(nTrig == 3){
             arsprTextbox[1].draw(batch);
-        } else if(nTrig == 4){
-            arsprTextbox[2].draw(batch);
         }
         batch.end();
     }
