@@ -33,7 +33,7 @@ public class ScrMenu implements Screen, InputProcessor {
         batch = new SpriteBatch();
         btnPlay = new Button(100, 50, 0, Gdx.graphics.getHeight() - 50, "Tail.png");
         btnAni = new Button(100, 50, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50, "Animation.jpg");
-        btnSign = new Button(100, 50, Gdx.graphics.getWidth() / 2 - 50, Gdx.graphics.getHeight() - 50, "SignB.png");
+        btnSign = new Button(100, 50, Gdx.graphics.getWidth() / 2 - 50, Gdx.graphics.getHeight() - 50, "Food.png");
         btnQuit = new Button(100, 50, Gdx.graphics.getWidth() - 100, 0, "Quit.jpg");
         btnAH = new Button(100, 50, Gdx.graphics.getWidth()/2 - 50, 0, "AniHit.png");
         btnGame = new Button(100, 50, 0, 0, "Game.png");
@@ -114,7 +114,7 @@ public class ScrMenu implements Screen, InputProcessor {
                 System.out.println("Hit Animation");
                 gamMenu.updateState(3);
             } else if(isHit(screenX, screenY, btnSign)){
-                System.out.println("Hit Sign");
+                System.out.println("Hit Food");
                 gamMenu.updateState(2);
             } else if(isHit(screenX, screenY, btnQuit)){
                 System.out.println("Quit");
