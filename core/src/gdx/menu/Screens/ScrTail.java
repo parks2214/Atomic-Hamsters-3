@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import gdx.menu.GamMenu;
 import gdx.menu.images.Button;
 import gdx.menu.images.Wall;
@@ -19,8 +21,11 @@ public class ScrTail implements Screen, InputProcessor {
     GamMenu gamMenu;
     OrthographicCamera oc;
     SpriteBatch batch;
-    Texture txNamP, txWall;
-    Sprite sprNamP;
+    Texture txNamP, txWall, txSheet;
+    Sprite sprNamP, sprMouse, sprAni;
+    int nFrame, nPos, nW, nH, nSx, nSy, nX = 100, nY = 100;
+    Animation araniMouse[];
+    TextureRegion trTemp;
 
     public ScrTail(GamMenu _gamMenu) {  //Referencing the main class.
         gamMenu = _gamMenu;
@@ -39,6 +44,7 @@ public class ScrTail implements Screen, InputProcessor {
         arWall[3] = new Wall(Gdx.graphics.getWidth(), 50, 0, Gdx.graphics.getHeight() - 100);       //Bottom Wall
         batch = new SpriteBatch();
         txNamP = new Texture("P.jpg");
+        txSheet = new Texture("sprmouse.png");
         sprNamP = new Sprite(txNamP);
         sprNamP.setSize(60, 80);
         sprNamP.setFlip(false, true);
@@ -49,6 +55,26 @@ public class ScrTail implements Screen, InputProcessor {
         btnAH = new Button(100, 50, Gdx.graphics.getWidth()/2 - 50, 0, "AniHit.png");
         btnQuit = new Button(100, 50, Gdx.graphics.getWidth() - 100, 0, "Quit.jpg");
         btnGame = new Button(100, 50, 0, 0, "Game.png");
+        //Animation stuff
+        nFrame = 0;
+        nPos = 0;
+        araniMouse = new Animation[4];
+        nW = txSheet.getWidth() / 4;
+        nH = txSheet.getHeight() / 4;
+        for (int i = 0; i < 4; i++) {
+            Sprite[] arSprMouse = new Sprite[4];
+            for (int j = 0; j < 4; j++) {
+                nSx = j * nW;
+                nSy = i * nH;
+                sprMouse = new Sprite(txSheet, nSx, nSy, nW, nH);
+                sprMouse.setFlip(false, true);
+                arSprMouse[j] = new Sprite(sprMouse);
+            }
+            araniMouse[i] = new Animation(0.8f, arSprMouse);
+
+        }
+        sprAni = new Sprite(txNamP, 0, 0, nW, nH);
+        sprAni.setPosition(200, 200);
         Gdx.input.setInputProcessor(this);
     }
 
@@ -56,6 +82,47 @@ public class ScrTail implements Screen, InputProcessor {
     public void render(float delta) {
         Gdx.gl.glClearColor(.135f, .206f, .235f, 1); //blue background.
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        float fSx = sprAni.getX();
+        float fSy = sprAni.getY();
+        //Animation Stuff
+        if (nFrame > 7) {
+            nFrame = 0;
+        }
+        trTemp = araniMouse[nPos].getKeyFrame(nFrame, false);
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            sprAni.setX(sprAni.getX()-1);
+            nX = nX-=1;
+            nPos = 1;
+            nFrame++;
+        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            sprAni.setX(sprAni.getX()+1);
+            nX = nX+=1;
+            nPos = 2;
+            nFrame++;
+        } if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            sprAni.setY(sprAni.getY()-1);
+            nY = nY-=1;
+            nPos = 3;
+            nFrame++;
+        } if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            sprAni.setY(sprAni.getY()+1);
+            nY = nY+=1;
+            nPos = 0;
+            nFrame++;
+        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
+            nPos = 1;
+            nFrame--;
+        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            nPos = 1;
+            nFrame--;
+        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
+            nPos = 2;
+            nFrame--;
+        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            nPos = 2;
+            nFrame--;
+        }
+        
         
         batch.begin();
         batch.setProjectionMatrix(oc.combined);
@@ -66,6 +133,7 @@ public class ScrTail implements Screen, InputProcessor {
         btnQuit.draw(batch);
         btnAH.draw(batch);
         btnGame.draw(batch);
+        batch.draw(trTemp, fSx, fSy);
         for (int i = 0; i < arWall.length; i++) {
             arWall[i].draw(batch);
         }
