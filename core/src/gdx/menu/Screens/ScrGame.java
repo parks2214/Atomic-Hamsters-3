@@ -61,10 +61,10 @@ public class ScrGame implements Screen, InputProcessor{
             arsprTextbox[i].setSize(300, 125);
             arsprTextbox[i].setPosition(Gdx.graphics.getWidth()/2 - arsprTextbox[i].getWidth()/2, 0);
         }
-        txMap = new Texture("Map so far.png");
+        txMap = new Texture("jupiter.jpg");
         //txHouse = new Texture("House.png");
         sprMap = new Sprite(txMap);
-        sprMap.setScale(4);
+        sprMap.setScale(1, 1.5f);
         sprMap.setPosition(Gdx.graphics.getWidth() / 2 - sprMap.getWidth() / 2, Gdx.graphics.getHeight() / 2 - sprMap.getHeight() / 2);
         sprMap.setFlip(false, true);
         arWall[0] = new Wall(Gdx.graphics.getWidth(), 50, 0, 50);   //Top Wall
@@ -101,7 +101,6 @@ public class ScrGame implements Screen, InputProcessor{
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 1, 1); //Purple background.
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         float fSx = sprAni.getX();
         float fSy = sprAni.getY();
@@ -165,6 +164,9 @@ public class ScrGame implements Screen, InputProcessor{
         
         batch.begin();
         batch.setProjectionMatrix(oc.combined);
+        for(int i = 0; i < arWall.length; i++){
+        arWall[i].draw(batch);
+        }
         sprMap.draw(batch);
         btnMenu.draw(batch);
         btnSign.draw(batch);
@@ -175,9 +177,7 @@ public class ScrGame implements Screen, InputProcessor{
         btnAH.draw(batch);
         sprSign.draw(batch);
         batch.draw(trTemp, fSx, fSy);
-        for(int i = 0; i < arWall.length; i++){
-        arWall[i].draw(batch);
-        }
+       
         if(nTrig == 1){
             arsprTextbox[0].draw(batch);
         } else if(nTrig == 3){

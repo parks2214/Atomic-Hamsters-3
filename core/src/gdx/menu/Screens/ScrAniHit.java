@@ -83,7 +83,7 @@ public class ScrAniHit implements Screen, InputProcessor{
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 1, 1); //Purple background.
+        Gdx.gl.glClearColor(1, 1, 1, 1); //White background.
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         float fSx = sprAni.getX();
         float fSy = sprAni.getY();
