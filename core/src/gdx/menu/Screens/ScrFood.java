@@ -15,12 +15,13 @@ import gdx.menu.GamMenu;
 import gdx.menu.images.Button;
 
 public class ScrFood implements Screen, InputProcessor {
-    Button btnMenu, btnPlay, btnAni, btnQuit, btnAH, btnGame;
+      boolean arbDirection [] = new boolean [3];
+    Button btnMenu, btnQuit;
     OrthographicCamera oc;
-    Texture txNamS, txSign, txBox1, txBox2, txSheet;
+    Texture txNamS, txHamP, txBox1, txBox2, txSheet;
     GamMenu gamMenu;
     SpriteBatch batch;
-    Sprite sprNamSign, sprSign, sprBox1, sprBox2, sprMouse, sprAni;
+    Sprite sprNamSign, sprHamP, sprBox1, sprBox2, sprMouse, sprAni;
     int nTrig = 0; //Trigger variable for sign
     int nFrame, nPos, nW, nH, nSx, nSy, nX = 100, nY = 100;
     Animation araniMouse[];
@@ -35,23 +36,19 @@ public class ScrFood implements Screen, InputProcessor {
         oc.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         oc.update();
         batch = new SpriteBatch();
-        btnPlay = new Button(100, 50, 0, Gdx.graphics.getHeight() - 50, "Tail.png");
         btnMenu = new Button(100, 50, Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight() - 50, "Menu.jpg");
-        btnAni = new Button(100, 50, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight()-50, "Animation.jpg");
         btnQuit = new Button(100, 50, Gdx.graphics.getWidth() - 100, 0, "Quit.jpg");
-        btnAH = new Button(100, 50, Gdx.graphics.getWidth() / 2 - 50, 0, "AniHit.png");
-        btnGame = new Button(100, 50, 0, 0, "Game.png");
         txNamS = new Texture("S.png");
         txSheet = new Texture("sprmouse.png");
         sprNamSign = new Sprite(txNamS);
         sprNamSign.setFlip(false, true);
         sprNamSign.setSize(60, 80);
         sprNamSign.setPosition(Gdx.graphics.getWidth() / 2 - 30, Gdx.graphics.getHeight() / 2 - 40);
-        txSign = new Texture("Sign.png");
-        sprSign = new Sprite(txSign);
-        sprSign.setPosition(150, 150);
-        sprSign.setSize(50,50);
-        sprSign.setFlip(false, true);
+        txHamP = new Texture("HamP.png");
+        sprHamP = new Sprite(txHamP);
+        sprHamP.setPosition(150, 150);
+        sprHamP.setSize(50,50);
+        sprHamP.setFlip(false, true);
         txBox1 = new Texture("Textbox.png");
         sprBox1 = new Sprite(txBox1);
         sprBox1.setSize(300, 125);
@@ -62,6 +59,11 @@ public class ScrFood implements Screen, InputProcessor {
         sprBox2.setPosition(Gdx.graphics.getWidth()/2 - sprBox1.getWidth()/2, 0);
         sprBox2.setSize(300, 125);
         sprBox2.setFlip(false, true);
+        //Direction sets
+        /* arbDirection[0] = false;
+         arbDirection[1] = false;
+         arbDirection[2] = false;
+         arbDirection[3] = false;*/
         //Animation stuff
         nFrame = 0;
         nPos = 0;
@@ -96,50 +98,59 @@ public class ScrFood implements Screen, InputProcessor {
             nFrame = 0;
         }
         trTemp = araniMouse[nPos].getKeyFrame(nFrame, false);
+        if(isHitS(sprAni, sprHamP) && nTrig == 0){
+            System.out.println("He hecking ate it");
+            nTrig = 1;
+        } else if(isHitS(sprAni, sprHamP) && nTrig == 3){
+            nTrig = 3;
+        }else if(! isHitS(sprAni, sprHamP)){
+            nTrig = 0;
+        } 
+        if(nTrig == 1 && Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+            nTrig = 3;
+        }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            sprAni.setX(sprAni.getX()-1);
-            nX = nX-=1;
-            nPos = 1;
+            /*arbDirection [0]=true;
+            arbDirection[1] = false;
+         arbDirection[2] = false;
+         arbDirection[3] = false;*/
+            sprAni.setX(sprAni.getX()-5);
+            
+            nX = nX-=5;
+            nPos = 1;           
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            sprAni.setX(sprAni.getX()+1);
-            nX = nX+=1;
+            
+        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            sprAni.setX(sprAni.getX()+5);
+            nX = nX+=5;
             nPos = 2;
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            sprAni.setY(sprAni.getY()-1);
-            nY = nY-=1;
+        } else if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            sprAni.setY(sprAni.getY()-5);
+            nY = nY-=5;
             nPos = 3;
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            sprAni.setY(sprAni.getY()+1);
-            nY = nY+=1;
+        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            sprAni.setY(sprAni.getY()+5);
+            nY = nY+=5;
             nPos = 0;
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
-            nPos = 1;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            nPos = 1;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
-            nPos = 2;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            nPos = 2;
-            nFrame--;
         }
+        
+       /* //Direction instructions
+        if (arbDirection[0]== true) {
+          sprAni.setX(sprAni.getX()-1);
+            nX = nX-=1;
+            nPos = 1;           
+            nFrame++;  
+        }*/
         
         batch.begin();
         batch.setProjectionMatrix(oc.combined);
-        btnPlay.draw(batch);
         btnMenu.draw(batch);
-        btnAni.draw(batch);
         sprNamSign.draw(batch);
-        sprSign.draw(batch);
+        sprHamP.draw(batch);
         btnQuit.draw(batch);
-        btnAH.draw(batch);
-        btnGame.draw(batch);
         batch.draw(trTemp, fSx, fSy);
         if(nTrig == 1){
             sprBox1.draw(batch);
@@ -193,25 +204,13 @@ public class ScrFood implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (button == Input.Buttons.LEFT) {
-            if (isHitB(screenX, screenY, btnPlay)) {
-                gamMenu.updateState(1);
-                System.out.println("Hit Play");
-            } else if (isHitB(screenX, screenY, btnMenu)) {
+            if (isHitB(screenX, screenY, btnMenu)) {
                 gamMenu.updateState(0);
                 System.out.println("Hit Menu");
-            } else if(isHitB(screenX, screenY, btnAni)){
-                gamMenu.updateState(3);
-                System.out.println("Hit Animation");
             } else if(isHitB(screenX, screenY, btnQuit)){
                 System.out.println("Quit");
                 System.exit(0);
-            } else if(isHitB(screenX, screenY, btnAH)){
-                System.out.println("Hit AniHit");
-                gamMenu.updateState(4);
-            } else if(isHitB(screenX, screenY, btnGame)){
-                System.out.println("Hit Game");
-                gamMenu.updateState(5);
-            }
+            } 
         }
         return false;
     }
