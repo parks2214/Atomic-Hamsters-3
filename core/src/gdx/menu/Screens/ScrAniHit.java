@@ -15,7 +15,8 @@ import gdx.menu.GamMenu;
 import gdx.menu.images.Button;
 import gdx.menu.images.Wall;
 
-public class ScrAniHit implements Screen, InputProcessor{
+public class ScrAniHit implements Screen, InputProcessor {
+
     SpriteBatch batch;
     GamMenu gamMenu;
     OrthographicCamera oc;
@@ -27,8 +28,9 @@ public class ScrAniHit implements Screen, InputProcessor{
     Animation araniDude[], araniMouse[];
     int fW, fH, fSx, fSy;
     Wall[] arWall = new Wall[4];
-    
-    
+    boolean arbDirection[] = new boolean[4];
+    float fSpeed = 1;
+
     public ScrAniHit(GamMenu _gamMenu) {
         gamMenu = _gamMenu;
     }
@@ -44,20 +46,24 @@ public class ScrAniHit implements Screen, InputProcessor{
         btnSign = new Button(100, 50, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50, "Food.png");
         btnPlay = new Button(100, 50, 0, Gdx.graphics.getHeight() - 50, "Tail.png");
         btnQuit = new Button(100, 50, Gdx.graphics.getWidth() - 100, 0, "Quit.jpg");
-        btnAni = new Button(100, 50, Gdx.graphics.getWidth()/2 - 50, 0, "Animation.jpg");
+        btnAni = new Button(100, 50, Gdx.graphics.getWidth() / 2 - 50, 0, "Animation.jpg");
         btnGame = new Button(100, 50, 0, 0, "Game.png");
         txSheet = new Texture("sprmouse.png");
-        
+
         txNamAH = new Texture("A.jpg");
         sprNamAH = new Sprite(txNamAH); //Screen Name sprite
         sprNamAH.setFlip(false, true);
         sprNamAH.setSize(60, 80);
-        sprNamAH.setPosition(Gdx.graphics.getWidth()/2 - 30, Gdx.graphics.getHeight()/2 - 40);
+        sprNamAH.setPosition(Gdx.graphics.getWidth() / 2 - 30, Gdx.graphics.getHeight() / 2 - 40);
         arWall[0] = new Wall(Gdx.graphics.getWidth(), 50, 0, 50);   //Top Wall
         arWall[1] = new Wall(Gdx.graphics.getWidth(), 50, 0, Gdx.graphics.getHeight() - 100);    //Bottom Wall
         arWall[2] = new Wall(50, Gdx.graphics.getHeight() - 200, 0, 100);   //Left Wall
         arWall[3] = new Wall(50, Gdx.graphics.getHeight() - 200, Gdx.graphics.getWidth() - 50, 100);    //Right Wall
-        
+        //Direction sets
+        arbDirection[0] = false;
+        arbDirection[1] = false;
+        arbDirection[2] = false;
+        arbDirection[3] = false;
         //Animation Stuff
         nFrame = 0;
         nPos = 0;
@@ -88,41 +94,68 @@ public class ScrAniHit implements Screen, InputProcessor{
         float fSx = sprAni.getX();
         float fSy = sprAni.getY();
         //Animation Stuff
-        
+
         if (nFrame > 7) {
             nFrame = 0;
         }
         trTemp = araniMouse[nPos].getKeyFrame(nFrame, false);
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            sprAni.setX(sprAni.getX()-1);
-            nX = nX-=1;
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            arbDirection[0] = true;
+            arbDirection[1] = false;
+            arbDirection[2] = false;
+            arbDirection[3] = false;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            arbDirection[0] = false;
+            arbDirection[1] = true;
+            arbDirection[2] = false;
+            arbDirection[3] = false;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            arbDirection[0] = false;
+            arbDirection[1] = false;
+            arbDirection[2] = true;
+            arbDirection[3] = false;
+
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            arbDirection[0] = false;
+            arbDirection[1] = false;
+            arbDirection[2] = false;
+            arbDirection[3] = true;
+        }
+
+        //Direction instructions
+        if (arbDirection[0] == true) {
+            sprAni.setX(sprAni.getX() - fSpeed);
+            nX = nX -= fSpeed;
             nPos = 1;
             nFrame++;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            sprAni.setX(sprAni.getX()+1);
-            nX = nX+=1;
+        }
+        if (arbDirection[1] == true) {
+            sprAni.setX(sprAni.getX() + fSpeed);
+            nX = nX += fSpeed;
             nPos = 2;
             nFrame++;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            sprAni.setY(sprAni.getY()-1);
-            nY = nY-=1;
+        }
+        if (arbDirection[2] == true) {
+            sprAni.setY(sprAni.getY() - fSpeed);
+            nY = nY -= fSpeed;
             nPos = 3;
             nFrame++;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            sprAni.setY(sprAni.getY()+1);
-            nY = nY+=1;
+        }
+        if (arbDirection[3] == true) {
+            sprAni.setY(sprAni.getY() + fSpeed);
+            nY = nY += fSpeed;
             nPos = 0;
             nFrame++;
         }
         for (int i = 0; i < arWall.length; i++) {
-           if(isHitS(sprAni, arWall[i])){
+            if (isHitS(sprAni, arWall[i])) {
                 sprAni.setPosition(fSx, fSy);
             }
         }
-        if(isHitS(sprAni, sprNamAH)){
+        if (isHitS(sprAni, sprNamAH)) {
             sprAni.setPosition(fSx, fSy);
         }
-        
+
         batch.begin();
         batch.setProjectionMatrix(oc.combined);
         btnMenu.draw(batch);
@@ -133,8 +166,8 @@ public class ScrAniHit implements Screen, InputProcessor{
         btnAni.draw(batch);
         btnGame.draw(batch);
         batch.draw(trTemp, fSx, fSy);
-        for(int i = 0; i < arWall.length; i++){
-        arWall[i].draw(batch);
+        for (int i = 0; i < arWall.length; i++) {
+            arWall[i].draw(batch);
         }
         batch.end();
     }
@@ -186,16 +219,16 @@ public class ScrAniHit implements Screen, InputProcessor{
             } else if (isHitB(screenX, screenY, btnSign)) {
                 gamMenu.updateState(2);
                 System.out.println("Hit Sign");
-            } else if (isHitB(screenX, screenY, btnPlay)){
+            } else if (isHitB(screenX, screenY, btnPlay)) {
                 gamMenu.updateState(1);
                 System.out.println("Hit Play");
-            } else if (isHitB(screenX, screenY, btnQuit)){
+            } else if (isHitB(screenX, screenY, btnQuit)) {
                 System.out.println("Quit");
                 System.exit(0);
-            } else if (isHitB(screenX, screenY, btnAni)){
+            } else if (isHitB(screenX, screenY, btnAni)) {
                 System.out.println("Hit Animation");
                 gamMenu.updateState(3);
-            } else if (isHitB(screenX, screenY, btnGame)){
+            } else if (isHitB(screenX, screenY, btnGame)) {
                 System.out.println("Hit Game");
                 gamMenu.updateState(5);
             }
@@ -222,6 +255,7 @@ public class ScrAniHit implements Screen, InputProcessor{
     public boolean scrolled(int amount) {
         return false;
     }
+
     public boolean isHitB(int nX, int nY, Sprite sprBtn) {
         if (nX > sprBtn.getX() && nX < sprBtn.getX() + sprBtn.getWidth() && nY > sprBtn.getY() && nY < sprBtn.getY() + sprBtn.getHeight()) {
             return true;
@@ -229,6 +263,7 @@ public class ScrAniHit implements Screen, InputProcessor{
             return false;
         }
     }
+
     public boolean isHitS(Sprite spr1, Sprite spr2) {
         return spr1.getBoundingRectangle().overlaps(spr2.getBoundingRectangle());
     }

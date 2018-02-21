@@ -26,6 +26,8 @@ public class ScrAnimation implements Screen, InputProcessor {
     int nX = 100, nY = 100;
     Sprite sprButtonMenu, sprButtonSign, sprNamT, sprMouse;
     SpriteBatch batch;
+    boolean arbDirection[] = new boolean[4];
+    float fSpeed = 1;
     
     public ScrAnimation(GamMenu _gamMenu) {
         gamMenu = _gamMenu;
@@ -52,7 +54,11 @@ public class ScrAnimation implements Screen, InputProcessor {
         sprNamT.setSize(60, 80);
         sprNamT.setPosition(Gdx.graphics.getWidth()/2 - 30, Gdx.graphics.getHeight()/2 - 40);
         
-        
+        //Direction sets
+        arbDirection[0] = false;
+        arbDirection[1] = false;
+        arbDirection[2] = false;
+        arbDirection[3] = false;
         //Animation Stuff
         nFrame = 0;
         nPos = 0;
@@ -86,20 +92,51 @@ public class ScrAnimation implements Screen, InputProcessor {
             nFrame = 0;
         }
         trTemp = araniMouse[nPos].getKeyFrame(nFrame, false);
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            nX = nX-=1;
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            arbDirection[0] = true;
+            arbDirection[1] = false;
+            arbDirection[2] = false;
+            arbDirection[3] = false;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            arbDirection[0] = false;
+            arbDirection[1] = true;
+            arbDirection[2] = false;
+            arbDirection[3] = false;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            arbDirection[0] = false;
+            arbDirection[1] = false;
+            arbDirection[2] = true;
+            arbDirection[3] = false;
+
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            arbDirection[0] = false;
+            arbDirection[1] = false;
+            arbDirection[2] = false;
+            arbDirection[3] = true;
+        }
+
+        //Direction instructions
+        if (arbDirection[0] == true) {
+            sprMouse.setX(sprMouse.getX() - fSpeed);
+            nX = nX -= fSpeed;
             nPos = 1;
             nFrame++;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            nX = nX+=1;
+        }
+        if (arbDirection[1] == true) {
+            sprMouse.setX(sprMouse.getX() + fSpeed);
+            nX = nX += fSpeed;
             nPos = 2;
             nFrame++;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            nY = nY-=1;
+        }
+        if (arbDirection[2] == true) {
+            sprMouse.setY(sprMouse.getY() - fSpeed);
+            nY = nY -= fSpeed;
             nPos = 3;
             nFrame++;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            nY = nY+=1;
+        }
+        if (arbDirection[3] == true) {
+            sprMouse.setY(sprMouse.getY() + fSpeed);
+            nY = nY += fSpeed;
             nPos = 0;
             nFrame++;
         }

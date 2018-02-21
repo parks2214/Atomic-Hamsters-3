@@ -26,6 +26,8 @@ public class ScrTail implements Screen, InputProcessor {
     int nFrame, nPos, nW, nH, nSx, nSy, nX = 100, nY = 100;
     Animation araniMouse[];
     TextureRegion trTemp;
+    boolean arbDirection[] = new boolean[4];
+    float fSpeed = 1;
 
     public ScrTail(GamMenu _gamMenu) {  //Referencing the main class.
         gamMenu = _gamMenu;
@@ -55,6 +57,11 @@ public class ScrTail implements Screen, InputProcessor {
         btnAH = new Button(100, 50, Gdx.graphics.getWidth()/2 - 50, 0, "AniHit.png");
         btnQuit = new Button(100, 50, Gdx.graphics.getWidth() - 100, 0, "Quit.jpg");
         btnGame = new Button(100, 50, 0, 0, "Game.png");
+        //Direction sets
+        arbDirection[0] = false;
+        arbDirection[1] = false;
+        arbDirection[2] = false;
+        arbDirection[3] = false;
         //Animation stuff
         nFrame = 0;
         nPos = 0;
@@ -89,24 +96,51 @@ public class ScrTail implements Screen, InputProcessor {
             nFrame = 0;
         }
         trTemp = araniMouse[nPos].getKeyFrame(nFrame, false);
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            sprAni.setX(sprAni.getX()-1);
-            nX = nX-=1;
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            arbDirection[0] = true;
+            arbDirection[1] = false;
+            arbDirection[2] = false;
+            arbDirection[3] = false;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            arbDirection[0] = false;
+            arbDirection[1] = true;
+            arbDirection[2] = false;
+            arbDirection[3] = false;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            arbDirection[0] = false;
+            arbDirection[1] = false;
+            arbDirection[2] = true;
+            arbDirection[3] = false;
+
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            arbDirection[0] = false;
+            arbDirection[1] = false;
+            arbDirection[2] = false;
+            arbDirection[3] = true;
+        }
+
+        //Direction instructions
+        if (arbDirection[0] == true) {
+            sprAni.setX(sprAni.getX() - fSpeed);
+            nX = nX -= fSpeed;
             nPos = 1;
             nFrame++;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            sprAni.setX(sprAni.getX()+1);
-            nX = nX+=1;
+        }
+        if (arbDirection[1] == true) {
+            sprAni.setX(sprAni.getX() + fSpeed);
+            nX = nX += fSpeed;
             nPos = 2;
             nFrame++;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            sprAni.setY(sprAni.getY()-1);
-            nY = nY-=1;
+        }
+        if (arbDirection[2] == true) {
+            sprAni.setY(sprAni.getY() - fSpeed);
+            nY = nY -= fSpeed;
             nPos = 3;
             nFrame++;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            sprAni.setY(sprAni.getY()+1);
-            nY = nY+=1;
+        }
+        if (arbDirection[3] == true) {
+            sprAni.setY(sprAni.getY() + fSpeed);
+            nY = nY += fSpeed;
             nPos = 0;
             nFrame++;
         }
