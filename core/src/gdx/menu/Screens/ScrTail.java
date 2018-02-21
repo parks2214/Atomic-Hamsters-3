@@ -36,7 +36,7 @@ public class ScrTail implements Screen, InputProcessor {
         oc = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         oc.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         oc.update();
-        txWall = new Texture("Wall.jpg");
+        txWall = new Texture("Wall2.jpg");
         //Setting up Walls
         arWall[0] = new Wall(Gdx.graphics.getWidth(), 50, 0, 50);    //Top Wall
         arWall[1] = new Wall(50, Gdx.graphics.getHeight() - 100, Gdx.graphics.getWidth() - 50, 50);   //Right Wall

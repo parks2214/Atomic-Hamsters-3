@@ -121,16 +121,28 @@ public class ScrFood implements Screen, InputProcessor {
             nFrame++;
             
         } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            /*arbDirection [0]=false;
+            arbDirection[1] = true;
+         arbDirection[2] = false;
+         arbDirection[3] = false;*/
             sprAni.setX(sprAni.getX()+5);
             nX = nX+=5;
             nPos = 2;
             nFrame++;
         } else if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            /*arbDirection [0]=false;
+            arbDirection[1] = false;
+         arbDirection[2] = true;
+         arbDirection[3] = false;*/
             sprAni.setY(sprAni.getY()-5);
             nY = nY-=5;
             nPos = 3;
             nFrame++;
         } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            /*arbDirection [0]=false;
+            arbDirection[1] = false;
+         arbDirection[2] = false;
+         arbDirection[3] = true;*/
             sprAni.setY(sprAni.getY()+5);
             nY = nY+=5;
             nPos = 0;
@@ -143,7 +155,26 @@ public class ScrFood implements Screen, InputProcessor {
             nX = nX-=1;
             nPos = 1;           
             nFrame++;  
-        }*/
+        }
+        if (arbDirection[1]==true) {
+         sprAni.setX(sprAni.getX()+5);
+            nX = nX+=5;
+            nPos = 2;
+            nFrame++;
+        }
+        if (arbDirection[2]==true) {
+        sprAni.setY(sprAni.getY()-5);
+            nY = nY-=5;
+            nPos = 3;
+            nFrame++;
+        }
+        if (arbDirection[3]==true) {
+        sprAni.setY(sprAni.getY()+5);
+            nY = nY+=5;
+            nPos = 0;
+            nFrame++;
+        }
+        */
         
         batch.begin();
         batch.setProjectionMatrix(oc.combined);
