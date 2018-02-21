@@ -90,30 +90,18 @@ public class ScrAnimation implements Screen, InputProcessor {
             nX = nX-=1;
             nPos = 1;
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             nX = nX+=1;
             nPos = 2;
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+        } else if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             nY = nY-=1;
             nPos = 3;
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             nY = nY+=1;
             nPos = 0;
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
-            nPos = 1;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            nPos = 1;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
-            nPos = 2;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            nPos = 2;
-            nFrame--;
         }
         
         batch.begin();

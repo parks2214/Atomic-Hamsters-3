@@ -94,33 +94,21 @@ public class ScrTail implements Screen, InputProcessor {
             nX = nX-=1;
             nPos = 1;
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             sprAni.setX(sprAni.getX()+1);
             nX = nX+=1;
             nPos = 2;
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+        } else if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             sprAni.setY(sprAni.getY()-1);
             nY = nY-=1;
             nPos = 3;
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             sprAni.setY(sprAni.getY()+1);
             nY = nY+=1;
             nPos = 0;
             nFrame++;
-        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
-            nPos = 1;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            nPos = 1;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
-            nPos = 2;
-            nFrame--;
-        } if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            nPos = 2;
-            nFrame--;
         }
         
         
