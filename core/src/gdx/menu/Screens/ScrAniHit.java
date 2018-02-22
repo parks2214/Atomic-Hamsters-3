@@ -20,7 +20,7 @@ public class ScrAniHit implements Screen, InputProcessor {
     SpriteBatch batch;
     GamMenu gamMenu;
     OrthographicCamera oc;
-    Button btnMenu, btnSign, btnPlay, btnAni, btnQuit, btnGame;
+    Button btnMenu,btnQuit;
     TextureRegion trTemp;
     Texture txSheet, txNamAH, txNamGame;
     Sprite sprNamAH, sprDude, sprAni, sprMouse;   //sprAni is a ghost, a sprite used for hit detection
@@ -43,11 +43,7 @@ public class ScrAniHit implements Screen, InputProcessor {
         oc.update();
         //Buttons
         btnMenu = new Button(100, 50, Gdx.graphics.getWidth() / 2 - 50, Gdx.graphics.getHeight() - 50, "Menu.jpg");
-        btnSign = new Button(100, 50, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50, "Food.png");
-        btnPlay = new Button(100, 50, 0, Gdx.graphics.getHeight() - 50, "Tail.png");
         btnQuit = new Button(100, 50, Gdx.graphics.getWidth() - 100, 0, "Quit.jpg");
-        btnAni = new Button(100, 50, Gdx.graphics.getWidth() / 2 - 50, 0, "Animation.jpg");
-        btnGame = new Button(100, 50, 0, 0, "Game.png");
         txSheet = new Texture("sprmouse.png");
 
         txNamAH = new Texture("A.jpg");
@@ -159,12 +155,8 @@ public class ScrAniHit implements Screen, InputProcessor {
         batch.begin();
         batch.setProjectionMatrix(oc.combined);
         btnMenu.draw(batch);
-        btnSign.draw(batch);
-        btnPlay.draw(batch);
         btnQuit.draw(batch);
         sprNamAH.draw(batch);
-        btnAni.draw(batch);
-        btnGame.draw(batch);
         batch.draw(trTemp, fSx, fSy);
         for (int i = 0; i < arWall.length; i++) {
             arWall[i].draw(batch);
@@ -216,21 +208,9 @@ public class ScrAniHit implements Screen, InputProcessor {
             if (isHitB(screenX, screenY, btnMenu)) {
                 gamMenu.updateState(0);
                 System.out.println("Hit Menu");
-            } else if (isHitB(screenX, screenY, btnSign)) {
-                gamMenu.updateState(2);
-                System.out.println("Hit Sign");
-            } else if (isHitB(screenX, screenY, btnPlay)) {
-                gamMenu.updateState(1);
-                System.out.println("Hit Play");
             } else if (isHitB(screenX, screenY, btnQuit)) {
                 System.out.println("Quit");
                 System.exit(0);
-            } else if (isHitB(screenX, screenY, btnAni)) {
-                System.out.println("Hit Animation");
-                gamMenu.updateState(3);
-            } else if (isHitB(screenX, screenY, btnGame)) {
-                System.out.println("Hit Game");
-                gamMenu.updateState(5);
             }
         }
         return false;
