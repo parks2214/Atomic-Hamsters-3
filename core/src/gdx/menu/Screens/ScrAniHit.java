@@ -24,7 +24,7 @@ public class ScrAniHit implements Screen, InputProcessor {
     TextureRegion trTemp;
     Texture txSheet, txNamAH, txNamGame;
     Sprite sprNamAH, sprDude, sprAni, sprMouse;   //sprAni is a ghost, a sprite used for hit detection
-    int nFrame, nPos, nX = 100, nY = 100;   //nX and nY coordinates for sprAni
+    int nFrame, nPos, nX = 100, nY = 100;   //nX and nY coordinates for sprAni  hv
     Animation araniDude[], araniMouse[];
     int fW, fH, fSx, fSy;
     Wall[] arWall = new Wall[4];
