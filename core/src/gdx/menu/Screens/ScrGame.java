@@ -21,8 +21,8 @@ public class ScrGame implements Screen, InputProcessor{
     OrthographicCamera oc;
     Button btnMenu,btnQuit;
     TextureRegion trTemp;
-    Texture txSheet, txNamGame, txMap, txSign, txTextbox1, txTextbox2,txHouse;// txTextbox3, txHouse;
-    Sprite sprNamGame, sprMouse, sprAni, sprMap, sprSign, sprHouse;   //sprAni is a ghost, a sprite used for hit detection, maybe a bit redundant
+    Texture txSheet, txNamGame, txMap, txHamP, txTextbox1, txTextbox2,txHouse;// txTextbox3, txHouse;
+    Sprite sprNamGame, sprMouse, sprAni, sprMap, sprHamP, sprHouse;   //sprAni is a ghost, a sprite used for hit detection, maybe a bit redundant
     Sprite arsprTextbox[] = new Sprite[2];
     int nFrame, nPos, nX = 100, nY = 100, nTrig = 0;
     Animation araniMouse[];
@@ -68,11 +68,11 @@ public class ScrGame implements Screen, InputProcessor{
         arWall[1] = new Wall(Gdx.graphics.getWidth(), 50, 0, Gdx.graphics.getHeight() - 100);    //Bottom Wall
         arWall[2] = new Wall(50, Gdx.graphics.getHeight() - 200, 0, 100);   //Left Wall
         arWall[3] = new Wall(50, Gdx.graphics.getHeight() - 200, Gdx.graphics.getWidth() - 50, 100);    //Right Wall
-        txSign = new Texture("Sign.png");
-        sprSign = new Sprite(txSign);
-        sprSign.setPosition(400, 270);
-        sprSign.setSize(25, 25);
-        sprSign.setFlip(false, true);
+        txHamP = new Texture("HamP.png");
+        sprHamP = new Sprite(txHamP);
+        sprHamP.setPosition(400, 270);
+        sprHamP.setSize(50, 50);
+        sprHamP.setFlip(false, true);
         //Direction sets
         arbDirection[0] = false;
         arbDirection[1] = false;
@@ -159,12 +159,12 @@ public class ScrGame implements Screen, InputProcessor{
             nPos = 0;
             nFrame++;
         }
-        if(isHitS(sprAni, sprSign) && nTrig == 0){
-            System.out.println("Read Sign");
+        if(isHitS(sprAni, sprHamP) && nTrig == 0){
+            System.out.println("He hecking ate it");
             nTrig = 1;
-        } else if(isHitS(sprAni, sprSign) && nTrig == 3){
+        } else if(isHitS(sprAni, sprHamP) && nTrig == 3){
             nTrig = 3;
-        }else if(! isHitS(sprAni, sprSign)){
+        }else if(! isHitS(sprAni, sprHamP)){
             nTrig = 0;
         } 
         if(nTrig == 1 && Gdx.input.isKeyPressed(Input.Keys.ENTER)){
@@ -187,7 +187,7 @@ public class ScrGame implements Screen, InputProcessor{
         btnMenu.draw(batch);
         btnQuit.draw(batch);
         sprNamGame.draw(batch);
-        sprSign.draw(batch);
+        sprHamP.draw(batch);
         batch.draw(trTemp, fSx, fSy);
        
         if(nTrig == 1){
