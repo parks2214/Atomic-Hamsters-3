@@ -26,11 +26,10 @@ public class ScrAnimation implements Screen, InputProcessor {
     int nX = 100, nY = 100;
     Sprite sprButtonMenu, sprButtonSign, sprNamT, sprMouse;
     SpriteBatch batch;
-   // boolean arbDirection[] = new boolean[4];
     int nDir =0;
     int dX [] = new int [4];
     int dY [] = new int [4];
-    float fSpeed = 1;
+    //float fSpeed = 1;
     
     public ScrAnimation(GamMenu _gamMenu) {
         gamMenu = _gamMenu;
@@ -62,11 +61,6 @@ public class ScrAnimation implements Screen, InputProcessor {
         dY [1] = -1;
         dY [2] = 0;
         dY [3] = 1;
- 
-//        arbDirection[0] = false;
-//        arbDirection[1] = false;
-//        arbDirection[2] = false;
-//        arbDirection[3] = false;
         //Animation Stuff
         nFrame = 0;
         nPos = 0;
@@ -102,29 +96,12 @@ public class ScrAnimation implements Screen, InputProcessor {
         trTemp = araniMouse[nPos].getKeyFrame(nFrame, false);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             nDir=3;
-//            arbDirection[0] = true;
-//            arbDirection[1] = false;
-//            arbDirection[2] = false;
-//            arbDirection[3] = false;
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             nDir=1;
-//            arbDirection[0] = false;
-//            arbDirection[1] = true;
-//            arbDirection[2] = false;
-//            arbDirection[3] = false;
         } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             nDir=2;
-//            arbDirection[0] = false;
-//            arbDirection[1] = false;
-//            arbDirection[2] = true;
-//            arbDirection[3] = false;
-
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             nDir=0;
-//            arbDirection[0] = false;
-//            arbDirection[1] = false;
-//            arbDirection[2] = false;
-//            arbDirection[3] = true;
         }
 
         //Direction instructions
@@ -142,30 +119,6 @@ public class ScrAnimation implements Screen, InputProcessor {
             } else if (nDir==3) {
                 nPos = 0;
             }
-//        if () {//arbDirection[0] == true) {
-//            sprMouse.setX(sprMouse.getX() - fSpeed);
-//            nX = nX -= fSpeed;
-//            nPos = 1;
-//            nFrame++;
-//        }
-//        if () {//arbDirection[1] == true) {
-//            sprMouse.setX(sprMouse.getX() + fSpeed);
-//            nX = nX += fSpeed;
-//            nPos = 2;
-//            nFrame++;
-//        }
-//        if (){//arbDirection[2] == true) {
-//            sprMouse.setY(sprMouse.getY() - fSpeed);
-//            nY = nY -= fSpeed;
-//            nPos = 3;
-//            nFrame++;
-//        }
-//        if (){//arbDirection[3] == true) {
-//            sprMouse.setY(sprMouse.getY() + fSpeed);
-//            nY = nY += fSpeed;
-//            nPos = 0;
-//            nFrame++;
-//        }
         
         batch.begin();
         batch.setProjectionMatrix(oc.combined);
