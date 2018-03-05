@@ -95,13 +95,13 @@ public class ScrAnimation implements Screen, InputProcessor {
         }
         trTemp = araniMouse[nPos].getKeyFrame(nFrame, false);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            nDir=3;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            nDir=1;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             nDir=2;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             nDir=0;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            nDir=1;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            nDir=3;
         }
 
         //Direction instructions
