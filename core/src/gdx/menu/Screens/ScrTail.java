@@ -47,14 +47,14 @@ public class ScrTail implements Screen, InputProcessor {
         arWall[3] = new Wall(Gdx.graphics.getWidth(), 50, 0, Gdx.graphics.getHeight() - 100);       //Bottom Wall
         batch = new SpriteBatch();
         txNamP = new Texture("P.jpg");
-        txSheet = new Texture("hamsterhead3.png");
+        txSheet = new Texture("hamsterhead.png");
         fW = txSheet.getWidth() / 4;
         fH = txSheet.getHeight() / 4;
         sprMouse = new Sprite(txSheet);
         sprMouse.setFlip(false, true);
         nX2 = 0;
         nY2 = 0;
-        sprMouse.setPosition(Gdx.graphics.getWidth() / 2 - 30, Gdx.graphics.getHeight() / 2 - 40);
+        sprMouse.setPosition(30, 40);
         sprNamP = new Sprite(txNamP);
         sprNamP.setSize(60, 80);
         sprNamP.setFlip(false, true);
