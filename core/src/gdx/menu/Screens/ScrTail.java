@@ -41,10 +41,10 @@ public class ScrTail implements Screen, InputProcessor {
         oc.update();
         txWall = new Texture("Wall2.jpg");
         //Setting up Walls
-        arWall[0] = new Wall(Gdx.graphics.getWidth(), 50, 0, 50);    //Top Wall
-        arWall[1] = new Wall(50, Gdx.graphics.getHeight() - 100, Gdx.graphics.getWidth() - 50, 50);   //Right Wall
-        arWall[2] = new Wall(50, Gdx.graphics.getHeight() - 100, 0, 50);     //Left Wall
-        arWall[3] = new Wall(Gdx.graphics.getWidth(), 50, 0, Gdx.graphics.getHeight() - 100);       //Bottom Wall
+       // arWall[0] = new Wall(Gdx.graphics.getWidth(), 50, 0, 50);    //Top Wall
+       // arWall[1] = new Wall(50, Gdx.graphics.getHeight() - 100, Gdx.graphics.getWidth() - 50, 50);   //Right Wall
+        //arWall[2] = new Wall(50, Gdx.graphics.getHeight() - 100, 0, 50);     //Left Wall
+        //arWall[3] = new Wall(Gdx.graphics.getWidth(), 50, 0, Gdx.graphics.getHeight() - 100);       //Bottom Wall
         batch = new SpriteBatch();
         txNamP = new Texture("P.jpg");
         txSheet = new Texture("hamsterhead3.png");
